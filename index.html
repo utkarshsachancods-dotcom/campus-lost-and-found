@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Lost & Found Portal - NIET | Team Aryan</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+<div class="logo" onclick="showPage('home')">🔍 Lost & Found <span>NIET</span></div>
+<div class="header-actions">
+<button class="head-btn" onclick="showPage('report')">+ Report Item</button>
+<button class="head-btn head-btn-dark" onclick="showPage('admin')">Admin</button>
+</div>
+</header>
+
+<nav>
+<a href="#" id="nav-home" class="active" onclick="showPage('home');return false">Home</a>
+<a href="#" id="nav-lost" onclick="showPage('lost');return false">Lost Items</a>
+<a href="#" id="nav-found" onclick="showPage('found');return false">Found Items</a>
+<a href="#" id="nav-report" onclick="showPage('report');return false">Report Lost / Found</a>
+<a href="#" id="nav-claim" onclick="showPage('claim');return false">How to Claim</a>
+<a href="#" id="nav-about" onclick="showPage('about');return false">About Us</a>
+</nav>
+
+<main>
+<!-- HOME -->
+<div id="page-home">
+<div class="hero">
+<div class="hero-badge">✨ NIET • CAPSTONE PROJECT • SDG 11</div>
+<h1>Find What You Lost.<br>Return What You Found.</h1>
+<p>NIET Greater Noida | B.Tech CSE | Course: Web Designing (DCSE0152) | Faculty: Mr. Yash Kumar Saraswat</p>
+<p>Lost something? Found something? Report it here in one place. ID Card, Books, Water Bottle, Earphones - everything can be found here.</p>
+<div class="hero-buttons">
+<button class="btn btn-yellow" onclick="showPage('report')">📝 Report Lost Item</button>
+<button class="btn btn-white" onclick="showPage('found')">👀 View Found Items</button>
+</div>
+</div>
+
+<div class="stats">
+<div class="stat"><span class="stat-icon">📦</span><b id="totalCount">0</b><small>Total Items</small></div>
+<div class="stat"><span class="stat-icon">😔</span><b id="lostCount">0</b><small>Lost Items</small></div>
+<div class="stat"><span class="stat-icon">🎉</span><b id="foundCount">0</b><small>Found Items</small></div>
+<div class="stat"><span class="stat-icon">✅</span><b id="claimedCount">0</b><small>Claimed / Returned</small></div>
+</div>
+
+<div class="card highlight-card"><h3>🎯 Problem & Solution</h3><p><b>Problem:</b> In college, ID Cards, Books, Notebooks and Water Bottles are lost every day. Messages in WhatsApp groups get lost and not everyone gets the information from the Security Office.</p><p style="margin-top:8px"><b>Solution:</b> This website is a common platform where all Lost and Found items are shown in one place. Report, Search and Claim easily.</p></div>
+
+<div class="grid">
+<div class="card"><h3>✅ Objectives</h3><p>• Show Lost / Found information in one place<br>• Make reporting easy<br>• Find items quickly with Search and Filter<br>• Return items to the owner<br>• SDG 11 - Sustainable Campus Community</p></div>
+<div class="card"><h3>👥 Target Users</h3><p>• Students (B.Tech All Branches)<br>• Teachers / Faculty<br>• Campus Staff / Security<br>• Stakeholder: NIET College Community</p><p style="margin-top:10px"><b>Claim Office:</b> Admin Block, Ground Floor<br><b>Timing:</b> Mon-Sat, 9 AM - 5 PM</p></div>
+</div>
+
+<div class="card"><h3>🖼️ Recently Added Items</h3><div id="homeItems"></div></div>
+
+<div class="card"><h3>📸 Campus Gallery - Click Any Category To View Items</h3>
+<p class="subtitle">Tap on any category to see all items in that category</p>
+<div class="gallery">
+<div onclick="openGallery('ID Card')"><span class="g-emoji">🪪</span><b>ID Card</b><small>Click to View →</small></div>
+<div onclick="openGallery('Books')"><span class="g-emoji">📚</span><b>Books</b><small>Click to View →</small></div>
+<div onclick="openGallery('Electronics')"><span class="g-emoji">🎧</span><b>Earphones</b><small>Click to View →</small></div>
+<div onclick="openGallery('Bottle / Tiffin')"><span class="g-emoji">💧</span><b>Bottle</b><small>Click to View →</small></div>
+<div onclick="openGallery('Keys / Wallet')"><span class="g-emoji">🔑</span><b>Keys</b><small>Click to View →</small></div>
+<div onclick="openGallery('Other')"><span class="g-emoji">📦</span><b>Other Items</b><small>Click to View →</small></div>
+</div>
+</div>
+</div>
+
+<!-- LOST -->
+<div id="page-lost" class="hidden">
+<h2>😔 Lost Items</h2>
+<p class="subtitle">Items reported as lost by students and staff</p>
+<div class="filters"><input id="searchLost" placeholder="Search - e.g. ID Card, Bottle..." oninput="renderAll()"><select id="filterLostCat" onchange="renderAll()"><option value="">All Category</option><option>ID Card</option><option>Books</option><option>Electronics</option><option>Bottle / Tiffin</option><option>Keys / Wallet</option><option>Other</option></select></div>
+<div id="lostList"></div>
+<div class="card"><h3>Lost Items Table</h3><div style="overflow-x:auto"><table><tr><th>Item</th><th>Description</th><th>Location</th><th>Date</th></tr><tr><td>Student ID Card</td><td>Aryan Singh, 0261CS101</td><td>Main Canteen</td><td>25 Oct 2026</td></tr><tr><td>Water Bottle</td><td>Blue Steel Bottle</td><td>Library 2nd Floor</td><td>24 Oct 2026</td></tr><tr><td>Keys</td><td>Bike Keys with black cover</td><td>Parking Area</td><td>23 Oct 2026</td></tr></table></div></div>
+</div>
+
+<!-- FOUND -->
+<div id="page-found" class="hidden">
+<h2>🎉 Found Items</h2>
+<p class="subtitle">Items found on campus and kept safely at Admin Block</p>
+<div class="filters"><input id="searchFound" placeholder="Search Found Items..." oninput="renderAll()"><select id="filterFoundCat" onchange="renderAll()"><option value="">All Category</option><option>ID Card</option><option>Books</option><option>Electronics</option><option>Bottle / Tiffin</option><option>Keys / Wallet</option><option>Other</option></select></div>
+<div id="foundList"></div>
+<div class="card"><h3>Found Items Table</h3><div style="overflow-x:auto"><table><tr><th>Item</th><th>Found At</th><th>Date</th><th>Status</th></tr><tr><td>Earphones</td><td>Lab 3</td><td>26 Oct 2026</td><td>Available</td></tr><tr><td>Notebook</td><td>Classroom B-204</td><td>25 Oct 2026</td><td>Available</td></tr><tr><td>ID Card - Dipanshu</td><td>Admin Block</td><td>24 Oct 2026</td><td>Claimed</td></tr></table></div></div>
+</div>
+
+<!-- REPORT -->
+<div id="page-report" class="hidden">
+<h2>📝 Report Lost / Found Item</h2>
+<p class="subtitle">Fill the form below - It takes less than 1 minute</p>
+<div class="alert">Only for college students and staff.</div>
+<div class="card form-card">
+<label>Item Type *</label>
+<select id="fType"><option value="Lost">I Lost This Item (Lost)</option><option value="Found">I Found This Item (Found)</option></select>
+<label>Item Name *</label><input id="fName" placeholder="e.g. ID Card, Water Bottle, Earphones">
+<label>Category *</label><select id="fCat"><option>ID Card</option><option>Books</option><option>Electronics</option><option>Bottle / Tiffin</option><option>Keys / Wallet</option><option>Other</option></select>
+<label>Description *</label><textarea id="fDesc" placeholder="Color, Brand, Identification Mark..."></textarea>
+<label>Location - Where Lost / Found? *</label><input id="fLoc" placeholder="e.g. Canteen, Library, Lab 3, Parking">
+<label>Date *</label><input id="fDate" type="date">
+<label>Your Full Name *</label><input id="fPerson" placeholder="e.g. Aryan Singh">
+<label>Mobile Number *</label><input id="fMobile" placeholder="10 Digit Mobile Number" maxlength="10" inputmode="numeric">
+<label>ERP ID / Roll No *</label><input id="fErp" placeholder="e.g. 0261CS101">
+<label>Emoji (Optional)</label><input id="fEmoji" placeholder="e.g. 🪪 📚 🎧 💧 🔑">
+<button class="btn btn-blue" style="margin-top:16px" onclick="submitReport()">Submit Report →</button>
+</div>
+</div>
+
+<!-- CLAIM -->
+<div id="page-claim" class="hidden">
+<h2>📦 How to Claim Your Item</h2>
+<div class="card"><h3>Step-by-Step Process</h3><p><b>1.</b> Find your item in Lost or Found list<br><b>2.</b> Click on <b>Claim This Item</b><br><b>3.</b> Enter your Name and ERP ID<br><b>4.</b> Visit Admin Block and show your College ID<br><b>5.</b> Collect your item - Done!</p></div>
+<div class="card"><h3>🏢 Claim Office Details</h3><p><b>Location:</b> Admin Block, Ground Floor, NIET Greater Noida<br><b>Contact Person:</b> Security Office<br><b>Timing:</b> Monday to Saturday, 9 AM - 5 PM<br><b>Proof Required:</b> College ID Card / ERP ID</p></div>
+<div class="card"><h3>🔍 My Claims - Check Your Claim Status</h3><input id="myErpSearch" placeholder="Enter Your ERP ID - e.g. 0261CS101"><button class="btn btn-green" style="margin-top:10px" onclick="searchMyClaims()">Check My Claims</button><div id="myClaimsResult" style="margin-top:12px"></div></div>
+</div>
+
+<!-- ABOUT -->
+<div id="page-about" class="hidden">
+<h2>ℹ️ About Us</h2>
+<div class="card"><h3>What is This Project?</h3><p>Campus Lost and Found Portal is a simple website where NIET students and staff can share information about lost or found items. This is a Capstone Project for Web Designing course (DCSE0152).</p><p style="margin-top:8px"><b>SDG 11:</b> Sustainable Cities and Communities - To build a helpful and organized campus.</p></div>
+<div class="card"><h3>👨‍💻 Our Team</h3><div class="team"><div><span class="avatar">AS</span><b>Utkarsh Sachan</b><br>0261CS101<br><small>Team Leader & HTML Developer</small></div><div><span class="avatar">SK</span><b>Utkarsh Jaishwal</b><br>0261CS102<br><small>CSS & UI Designer</small></div><div><span class="avatar">PS</span><b>Vaibhav Gupta</b><br>0261CS103<br><small>JavaScript & Functionality</small></div><div><span class="avatar">DY</span><b>Vaishali Tiwari</b><br>0261CS104<br><small>Content & Documentation</small></div><div><span class="avatar">VS</span><b>Vaibhav Sharma</b><br>0261CS105<br><small>Testing & Presentation</small></div></div></div>
+<div class="card"><h3>🗺️ Sitemap</h3><p>Home → Lost Items → Found Items → Report → How to Claim → About Us → Admin Dashboard</p><p style="margin-top:8px"><b>Challenges:</b> Limited Time, Basic Technical Knowledge, Static Website<br><b>Success Criteria:</b> Pages properly organized, Content clear, All navigation links working.</p></div>
+</div>
+
+<!-- ADMIN -->
+<div id="page-admin" class="hidden">
+<h2>🛡️ Admin Dashboard - Only For Our Team</h2>
+<div class="card" id="adminLoginBox">
+<h3>Admin Login - Demo</h3><p style="font-size:13px;color:#666">Admin Mobile: <b>9876543210</b> | Demo Code: <b>1234</b></p>
+<label>Mobile Number</label><input id="adminMobile" placeholder="9876543210" maxlength="10">
+<div id="adminOtpBox" class="hidden"><label>Demo Code</label><input id="adminOtp" placeholder="1234" maxlength="4"></div>
+<button class="btn btn-blue" id="adminBtn" onclick="sendAdminCode()">Send Demo Code</button>
+</div>
+<div id="adminBox" class="hidden">
+<div class="card"><h3>All Reports - Manage Reports</h3><div id="adminList"></div></div>
+<button class="btn btn-outline" onclick="adminLogout()">Logout Admin</button>
+</div>
+</div>
+
+<!-- GALLERY POPUP -->
+<div id="galleryModal" class="hidden modal-overlay">
+<div class="modal-box">
+<div style="display:flex;justify-content:space-between;align-items:center">
+<h3 id="galleryTitle">Items</h3>
+<button onclick="closeGallery()" class="close-btn">X Close</button>
+</div>
+<p id="galleryCount" style="font-size:13px;color:#666;margin:8px 0"></p>
+<div id="galleryItems"></div>
+<button class="btn btn-blue" style="margin-top:12px" onclick="closeGallery()">Close</button>
+</div>
+</div>
+</main>
+
+<footer><b>Campus Lost & Found Portal | NIET Greater Noida | Team: Aryan Singh, Sumit Kumar, Prabal Singh, Dipanshu Yadav</b><br>Demo Student Project | No Real Money / No Password Collected | Claim Office: Admin Block, 9 AM - 5 PM</footer>
+
+<script>
+let defaultItems=[
+{id:1,type:"Lost",name:"Student ID Card",cat:"ID Card",desc:"Aryan Singh, 0261CS101, Blue Lanyard",loc:"Main Canteen",date:"2026-10-25",person:"Aryan Singh",mobile:"9876543210",erp:"0261CS101",emoji:"🪪",status:"Pending",claimedBy:""},
+{id:2,type:"Found",name:"Earphones - Black",cat:"Electronics",desc:"Black Boat Earphones, Left side scratch",loc:"Lab 3",date:"2026-10-26",person:"Sumit Kumar",mobile:"9876543211",erp:"0261CS102",emoji:"🎧",status:"Available",claimedBy:""},
+{id:3,type:"Found",name:"Notebook - DBMS",cat:"Books",desc:"Blue Notebook, Name Dipanshu written on it",loc:"Classroom B-204",date:"2026-10-25",person:"Dipanshu Yadav",mobile:"9876543212",erp:"0261CS104",emoji:"📚",status:"Available",claimedBy:""},
+{id:4,type:"Lost",name:"Water Bottle Steel",cat:"Bottle / Tiffin",desc:"Blue Steel Bottle 1 Litre",loc:"Library 2nd Floor",date:"2026-10-24",person:"Prabal Singh",mobile:"9876543213",erp:"0261CS103",emoji:"💧",status:"Pending",claimedBy:""},
+{id:5,type:"Found",name:"ID Card - Dipanshu",cat:"ID Card",desc:"Found near Admin Block, Pink Cover",loc:"Admin Block",date:"2026-10-24",person:"Sumit Kumar",mobile:"9876543214",erp:"0261CS102",emoji:"🪪",status:"Claimed",claimedBy:"Dipanshu Yadav (0261CS104)"},
+{id:6,type:"Lost",name:"Bike Keys",cat:"Keys / Wallet",desc:"Black cover, 2 keys",loc:"Parking Area",date:"2026-10-23",person:"Aryan Singh",mobile:"9876543215",erp:"0261CS101",emoji:"🔑",status:"Pending",claimedBy:""}
+];
+let items=JSON.parse(localStorage.getItem('lf_items')||'null')||defaultItems;
+function save(){localStorage.setItem('lf_items',JSON.stringify(items));}
+function showPage(p){
+  ['home','lost','found','report','claim','about','admin'].forEach(x=>{
+    document.getElementById('page-'+x).classList.toggle('hidden',x!==p);
+    document.getElementById('nav-'+x)?.classList.toggle('active',x===p);
+  });
+  renderAll(); window.scrollTo(0,0);
+}
+function itemCard(it){
+  let badge = it.status==='Claimed' ? '<span class="badge badge-claimed">Claimed</span>' : it.type==='Lost' ? '<span class="badge badge-lost">LOST - '+it.status+'</span>' : '<span class="badge badge-found">FOUND - '+it.status+'</span>';
+  return `<div class="card item-card"><div class="item-emoji">${it.emoji||'📦'}</div><div style="flex:1"><b>${it.name}</b> ${badge}<p style="font-size:14px;margin:6px 0">${it.desc}</p><p style="font-size:13px;color:#475569">Location: ${it.loc} | Date: ${it.date} | Category: ${it.cat} | Reported By: ${it.person} (${it.erp})</p>${it.claimedBy?`<p style="font-size:13px;color:#16a34a;font-weight:700">Claimed By: ${it.claimedBy}</p>`:''}<div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">${it.status!=='Claimed'?`<button class="btn btn-green btn-small" onclick="claimItem(${it.id})">Claim This Item</button>`:''}<button class="btn btn-outline btn-small" onclick="contactOwner('${it.mobile}','${it.person}')">Contact: ${it.mobile}</button></div></div></div>`;
+}
+function renderAll(){
+  let lost = items.filter(i=>i.type==='Lost');
+  let found = items.filter(i=>i.type==='Found');
+  let sl=document.getElementById('searchLost')?.value.toLowerCase()||'';
+  let sf=document.getElementById('searchFound')?.value.toLowerCase()||'';
+  let cl=document.getElementById('filterLostCat')?.value||'';
+  let cf=document.getElementById('filterFoundCat')?.value||'';
+  let lostF=lost.filter(i=>(i.name+i.desc+i.loc).toLowerCase().includes(sl)&&(!cl||i.cat===cl));
+  let foundF=found.filter(i=>(i.name+i.desc+i.loc).toLowerCase().includes(sf)&&(!cf||i.cat===cf));
+  document.getElementById('lostList').innerHTML = lostF.length?lostF.map(itemCard).join(''):'<div class="card">No Lost Items Found.</div>';
+  document.getElementById('foundList').innerHTML = foundF.length?foundF.map(itemCard).join(''):'<div class="card">No Found Items Found.</div>';
+  document.getElementById('homeItems').innerHTML = items.slice(0,3).map(itemCard).join('');
+  document.getElementById('totalCount').innerText=items.length;
+  document.getElementById('lostCount').innerText=lost.length;
+  document.getElementById('foundCount').innerText=found.length;
+  document.getElementById('claimedCount').innerText=items.filter(i=>i.status==='Claimed').length;
+  renderAdmin();
+}
+function submitReport(){
+  let type=document.getElementById('fType').value;
+  let name=document.getElementById('fName').value.trim();
+  let cat=document.getElementById('fCat').value;
+  let desc=document.getElementById('fDesc').value.trim();
+  let loc=document.getElementById('fLoc').value.trim();
+  let date=document.getElementById('fDate').value;
+  let person=document.getElementById('fPerson').value.trim();
+  let mobile=document.getElementById('fMobile').value.trim();
+  let erp=document.getElementById('fErp').value.trim();
+  let emoji=document.getElementById('fEmoji').value.trim()||'📦';
+  if(!name||!desc||!loc||!date||!person||!mobile||!erp){alert('Please fill all required fields');return;}
+  if(mobile.length!==10){alert('Mobile number must be 10 digits');return;}
+  items.unshift({id:Date.now(),type:type,name:name,cat:cat,desc:desc,loc:loc,date:date,person:person,mobile:mobile,erp:erp,emoji:emoji,status:type==='Lost'?'Pending':'Available',claimedBy:""});
+  save(); alert('Report Submitted Successfully! Admin will verify it.');
+  ['fName','fDesc','fLoc','fDate','fPerson','fMobile','fErp','fEmoji'].forEach(id=>document.getElementById(id).value='');
+  showPage(type==='Lost'?'lost':'found');
+}
+function claimItem(id){
+  let it=items.find(x=>x.id===id);
+  let name=prompt('Enter Your Full Name:');
+  if(!name) return;
+  let erp=prompt('Enter Your ERP ID (e.g. 0261CS101):');
+  if(!erp) return;
+  it.status='Claimed'; it.claimedBy=name+' ('+erp+')'; save(); renderAll();
+  alert('Claim Request Saved! Please visit Admin Block with your College ID to collect the item. Timing: 9 AM - 5 PM');
+}
+function contactOwner(mobile,person){alert('Contact '+person+' on Mobile: '+mobile+'\nYou can also meet at Admin Block.');}
+function searchMyClaims(){
+  let erp=document.getElementById('myErpSearch').value.trim().toUpperCase();
+  if(!erp){alert('Please enter ERP ID');return;}
+  let mine=items.filter(i=>i.claimedBy.toUpperCase().includes(erp)||i.erp.toUpperCase()===erp);
+  document.getElementById('myClaimsResult').innerHTML = mine.length?mine.map(itemCard).join(''):'<p>No claims found for '+erp+'</p>';
+}
+function openGallery(category){
+  let filtered = items.filter(i => i.cat === category);
+  document.getElementById('galleryTitle').innerText = category + ' - Items';
+  document.getElementById('galleryCount').innerText = filtered.length + ' item(s) found in ' + category;
+  if(filtered.length === 0){
+    document.getElementById('galleryItems').innerHTML = '<div class="card">No items found in this category yet.<br><br><button class="btn btn-blue" onclick="goReport()">Report An Item</button></div>';
+  } else {
+    document.getElementById('galleryItems').innerHTML = filtered.map(itemCard).join('');
+  }
+  document.getElementById('galleryModal').classList.remove('hidden');
+}
+function closeGallery(){ document.getElementById('galleryModal').classList.add('hidden'); }
+function goReport(){ closeGallery(); showPage('report'); }
+function sendAdminCode(){
+  let m=document.getElementById('adminMobile').value.trim();
+  if(m!=='9876543210'){alert('Only Admin Mobile 9876543210 can login');return;}
+  document.getElementById('adminOtpBox').classList.remove('hidden');
+  document.getElementById('adminBtn').innerText='Verify and Open Dashboard';
+  document.getElementById('adminBtn').setAttribute('onclick','verifyAdmin()');
+  alert('Demo Code: 1234');
+}
+function verifyAdmin(){
+  if(document.getElementById('adminOtp').value.trim()!=='1234'){alert('Wrong Code! Demo Code is 1234');return;}
+  localStorage.setItem('lf_admin','yes');
+  showAdmin();
+}
+function showAdmin(){
+  if(localStorage.getItem('lf_admin')==='yes'){
+    document.getElementById('adminLoginBox').classList.add('hidden');
+    document.getElementById('adminBox').classList.remove('hidden');
+    renderAdmin();
+  }
+}
+function adminLogout(){localStorage.removeItem('lf_admin');location.reload();}
+function renderAdmin(){
+  if(localStorage.getItem('lf_admin')!=='yes') return;
+  document.getElementById('adminList').innerHTML = items.map((it)=>`<div style="border-bottom:1px solid #eee;padding:10px 0"><b>${it.emoji} ${it.name}</b> - ${it.type} - ${it.status} - ${it.person} (${it.erp})<br><button class="btn btn-green btn-small" style="margin-top:6px" onclick="markClaimed(${it.id})">Mark Claimed</button> <button class="btn btn-outline btn-small" onclick="deleteItem(${it.id})">Delete</button></div>`).join('');
+}
+function markClaimed(id){let it=items.find(x=>x.id===id);it.status='Claimed';if(!it.claimedBy)it.claimedBy='Verified by Admin';save();renderAll();alert('Marked as Claimed');}
+function deleteItem(id){if(!confirm('Delete this report?'))return;items=items.filter(x=>x.id!==id);save();renderAll();}
+document.getElementById('fDate').valueAsDate=new Date();
+showAdmin(); renderAll();
+</script>
+</body>
+</html>
